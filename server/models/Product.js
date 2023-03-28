@@ -3,26 +3,45 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const productSchema = new Schema({
-  name: {
+  title: {
     type: String,
     required: true,
-    trim: true
   },
   description: {
-    type: String
+    type: String,
+    required: true,
   },
   image: {
-    type: String
+    type: String,
+    required: true,
   },
   price: {
     type: Number,
     required: true,
-    min: 0.99
   },
-  quantity: {
+  discount: {
     type: Number,
-    min: 0,
-    default: 0
+    required: true,
+  },
+  rating: {
+    type: Number,
+    required: true,
+  },
+  departure: {
+    type: Date,
+    required: true,
+  },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  allinclusive: {
+    type: Boolean,
+    required: true,
+  },
+  activities: {
+    type: Boolean,
+    required: true,
   },
   category: {
     type: Schema.Types.ObjectId,
