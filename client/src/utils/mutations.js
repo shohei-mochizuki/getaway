@@ -17,6 +17,7 @@ export const ADD_ORDER = gql`
       purchaseDate
       products {
         _id
+        packageId
         name
         description
         image
@@ -60,6 +61,7 @@ export const ADD_USER = gql`
 
 export const ADD_FAVOURITE = gql`
   mutation addFavourite(
+    $packageId: String,
     $name: String,
     $description: String, 
     $image: String,
@@ -75,6 +77,7 @@ export const ADD_FAVOURITE = gql`
     $category: ID, 
   ) {
     addFavourite(
+      packageId: $packageId
       name: $name,
       description: $description, 
       image: $image,
@@ -96,6 +99,7 @@ export const ADD_FAVOURITE = gql`
         purchaseDate
         products {
           _id
+          packageId
           name
           description
           image
@@ -115,6 +119,7 @@ export const ADD_FAVOURITE = gql`
       }
       savedProducts {
         _id
+        packageId
         name
         description
         image
@@ -145,6 +150,7 @@ export const REMOVE_FAVOURITE = gql`
         purchaseDate
         products {
           _id
+          packageId
           name
           description
           image
@@ -164,6 +170,7 @@ export const REMOVE_FAVOURITE = gql`
       }
       savedProducts {
         _id
+        packageId
         name
         description
         image
