@@ -3,10 +3,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const categorySchema = new Schema({
-  name: {
+  region: {
     type: String,
     required: true,
-    trim: true
   }
 });
 

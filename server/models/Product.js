@@ -3,26 +3,57 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const productSchema = new Schema({
+  packageId: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
-    trim: true
   },
   description: {
-    type: String
+    type: String,
+    required: true,
   },
   image: {
-    type: String
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
   },
   price: {
     type: Number,
     required: true,
-    min: 0.99
+  },
+  discount: {
+    type: Number,
+    required: true,
   },
   quantity: {
     type: Number,
     min: 0,
-    default: 0
+  },
+  rating: {
+    type: Number,
+    required: true,
+  },
+  departure: {
+    type: Date,
+    required: true,
+  },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  allinclusive: {
+    type: Boolean,
+    required: true,
+  },
+  activities: {
+    type: Boolean,
+    required: true,
   },
   category: {
     type: Schema.Types.ObjectId,
@@ -30,6 +61,9 @@ const productSchema = new Schema({
     required: true
   }
 });
+
+// Convert seeding data of departure ("yyyy-mm-dd") into a Data type
+productSchema.departure instanceof Date;
 
 const Product = mongoose.model('Product', productSchema);
 
