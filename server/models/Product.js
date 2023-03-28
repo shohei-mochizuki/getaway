@@ -58,6 +58,9 @@ const productSchema = new Schema({
   }
 });
 
+// Convert seeding data of departure ("yyyy-mm-dd") into a Data type
+productSchema.departure instanceof Date;
+
 const Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;
