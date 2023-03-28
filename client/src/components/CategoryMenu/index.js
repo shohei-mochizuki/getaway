@@ -41,6 +41,7 @@ function CategoryMenu() {
     });
   };
 
+  // ONLY LINE 55 NEEDS TO BE UPDATED {item.name} --> {item.region}
   return (
     <div>
       <h2>Choose a Category:</h2>
@@ -51,7 +52,7 @@ function CategoryMenu() {
             handleClick(item._id);
           }}
         >
-          {item.region}
+          {item.region} 
         </button>
       ))}
     </div>
