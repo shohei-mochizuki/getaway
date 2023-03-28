@@ -67,14 +67,17 @@ db.once('open', async () => {
       {
         products: [products[0]._id, products[0]._id, products[1]._id]
       }
-    ]
+    ],
+    savedProducts: [products[1]._id],
   });
 
   await User.create({
     firstName: 'Test',
     lastName: 'Test',
     email: 'test@gmail.com',
-    password: 'password'
+    password: 'password',
+    orders: [],
+    savedProducts: [products[0]._id, products[1]._id],
   });
 
   console.log('users seeded');
