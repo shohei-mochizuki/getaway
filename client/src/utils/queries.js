@@ -4,13 +4,22 @@ export const QUERY_PRODUCTS = gql`
   query getProducts($category: ID) {
     products(category: $category) {
       _id
+      packageId
       name
       description
-      price
-      quantity
       image
+      country
+      price
+      discount
+      quantity
+      rating
+      departure
+      duration
+      allinclusive
+      activities
       category {
         _id
+        region
       }
     }
   }
@@ -28,12 +37,21 @@ export const QUERY_ALL_PRODUCTS = gql`
   {
     products {
       _id
+      packageId
       name
       description
+      image
+      country
       price
+      discount
       quantity
+      rating
+      departure
+      duration
+      allinclusive
+      activities
       category {
-        name
+        region
       }
     }
   }
@@ -43,7 +61,7 @@ export const QUERY_CATEGORIES = gql`
   {
     categories {
       _id
-      name
+      region
     }
   }
 `;
@@ -58,11 +76,41 @@ export const QUERY_USER = gql`
         purchaseDate
         products {
           _id
+          packageId
           name
           description
-          price
-          quantity
           image
+          country
+          price
+          discount
+          quantity
+          rating
+          departure
+          duration
+          allinclusive
+          activities
+          category {
+            region
+          }
+        }
+      }
+      savedProducts {
+        _id
+        packageId
+        name
+        description
+        image
+        country
+        price
+        discount
+        quantity
+        rating
+        departure
+        duration
+        allinclusive
+        activities
+        category {
+          region
         }
       }
     }

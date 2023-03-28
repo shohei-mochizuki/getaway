@@ -21,6 +21,7 @@ db.once('open', async () => {
 
   const products = await Product.insertMany([
     {
+      packageId: 'US0001',
       name: 'Trip 1',
       description:
         'Weekend trip to New York!',
@@ -37,6 +38,7 @@ db.once('open', async () => {
       category: categories[5]._id,
     },
     {
+      packageId: 'CU0001',
       name: 'Trip 2',
       description:
         'A week vacation in Cayo Coco!',
