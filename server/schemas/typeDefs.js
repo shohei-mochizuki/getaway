@@ -14,6 +14,7 @@ const typeDefs = gql`
     image: String
     price: Float
     discount: Int
+    quantity: Int
     rating: Int
     departure: String
     duration: Int

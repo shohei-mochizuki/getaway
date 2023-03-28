@@ -23,6 +23,10 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
+  quantity: {
+    type: Number,
+    min: 0,
+  },
   rating: {
     type: Number,
     required: true,
