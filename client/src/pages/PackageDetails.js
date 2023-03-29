@@ -23,18 +23,6 @@ import { ADD_FAVOURITE } from "../utils/mutations";
 import { idbPromise } from "../utils/helpers";
 import spinner from "../assets/spinner.gif";
 
-const PackageDetails = {
-  title: "PackageDetails",
-  Category: "Europe",
-  Country: "France",
-  DepartureDate: "28th,May 2023",
-  Duration: "7 days",
-  Offer: "all-inclusive",
-  Offerdetails: "including activities",
-  Discount: "save up to 28%",
-  Price: "985$",
-};
-
 function Detail() {
   const [state, dispatch] = useStoreContext();
   const { id } = useParams();
@@ -107,7 +95,6 @@ function Detail() {
 
   // DEFINE saveFavourite handler
   const handleAddFavourite = async () => {
-
     console.log(currentProduct);
 
     // Get token
@@ -119,7 +106,7 @@ function Detail() {
 
     try {
       const { data } = await addFavourite({
-        variables:  {_id: currentProduct._id} 
+        variables: { _id: currentProduct._id },
       });
 
       // If book successfully saves to user's account, save book id to state
@@ -145,9 +132,10 @@ function Detail() {
         }}
       >
         <div style={{ flexGrow: 1 }}>
-          <h2>{PackageDetails.title}</h2>
+          <h2 style={{ fontWeight: "bold" }}>PackageDetails</h2>
+          <p>{currentProduct.name}</p>
           <img
-            src={`/images/paris.jpeg`}
+            src={`/images/${currentProduct.image}`}
             alt={currentProduct.name}
             style={{
               width: "100%",
@@ -166,18 +154,20 @@ function Detail() {
           }}
         >
           <div>
-            <p>{PackageDetails.Category}</p>
-            <p>{PackageDetails.Country}</p>
+            <p>{currentProduct.country}</p>
           </div>
-          <p>{PackageDetails.DepartureDate}</p>
-          <p>{PackageDetails.Duration}</p>
-          <p>{PackageDetails.Offerdetails}</p>
+          <p>{currentProduct.description}</p>
+          <p>Rating: {currentProduct.rating}</p>
+          <p>departure time: {currentProduct.departure}</p>
+          <p>duration: {currentProduct.duration}</p>
+          <p>all-inclusive:{currentProduct.allinclusive}</p>
+          <p>activities:{currentProduct.activities}</p>
         </div>
         <div className="text-center" style={{ flexGrow: 1 }}>
-          <p>{PackageDetails.Discount}</p>
+          <p style={{ color: "red" }}>save up to {currentProduct.discount}%!</p>
           <p>
             <strong> Price: </strong>
-            {PackageDetails.Price}
+            {currentProduct.Price}
           </p>
           <button
             onClick={addToCart}
@@ -210,7 +200,6 @@ function Detail() {
       </section>
     </>
   );
-  
 }
 
 export default Detail;
