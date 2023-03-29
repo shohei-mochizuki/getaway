@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER } from '../utils/queries';
+import { REMOVE_FAVOURITE } from '../utils/mutations';
 
 function OrderHistory() {
   const { data } = useQuery(QUERY_USER);
+  const [removeFavourite, { error }] = useMutation(REMOVE_FAVOURITE);
 
   let user;
 
@@ -14,6 +16,18 @@ function OrderHistory() {
   }
 
   console.log (data?.user);
+
+  const handleRemoveFavourite = async (_id) => {
+
+    console.log("BUTTON CLICKED");
+
+    try {
+      const { data } = await removeFavourite({
+        variables: { _id: _id}})    
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -40,7 +54,7 @@ function OrderHistory() {
                       <span>${price}</span>
                     </div>
                     <button
-                      onClick={() => removeFavourite(packageId)}
+                      onClick={() => handleRemoveFavourite(_id)}
                     >❌ Delete from favourite</button>
                   </div>
                 ))}

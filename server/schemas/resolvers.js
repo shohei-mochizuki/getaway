@@ -159,14 +159,16 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
-    deleteFavourite: async (parent, { packageId }, context) => {
+    removeFavourite: async (parent, { _id }, context) => {
+      console.log(_id);
+      console.log(context.user);
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $pull: {
               savedProducts: {
-                packageId: packageId
+                _id: ObjectId(_id)
               },
             },
           },
