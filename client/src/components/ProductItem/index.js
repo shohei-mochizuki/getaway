@@ -37,18 +37,19 @@ function ProductItem(item) {
     <div className="card px-1 py-1">
       <Link to={`/products/${_id}`}>
         <p>{country}</p>
-        <img alt={name} src={`/images/${image}`} />
+        <img alt={name} src={`/images/${image} `} className=" img-fluid " />
         <p>{name}</p>
       </Link>
       <div>
         <div>
-          {quantity} {pluralize("item", quantity)} in stock
+          {quantity} {pluralize("seat", quantity)} in stock
         </div>
         <span>${price}</span>
       </div>
       <div>
-        <button onClick={addToCart}>Add to cart</button>
-        <button onClick={addToCart}>Add to mydashboard</button>
+        <button className="rounded text-white" onClick={addToCart}>
+          Add to cart
+        </button>
       </div>
     </div>
   );
