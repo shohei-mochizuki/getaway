@@ -22,7 +22,7 @@ function OrderHistory() {
 
         {user ? (
           <>
-            <h2>
+            <h2 className="bg-primary">
               Order History for {user.firstName} {user.lastName}
             </h2>
             {user.orders.map((order) => (
