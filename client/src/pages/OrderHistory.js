@@ -5,6 +5,8 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER } from "../utils/queries";
 import { REMOVE_FAVOURITE, CHANGE_NAME } from "../utils/mutations";
 
+import Cart from "../components/Cart";
+
 function OrderHistory() {
   // Set up queries and mutations
   const { data } = useQuery(QUERY_USER);
@@ -144,6 +146,7 @@ function OrderHistory() {
             </div>
           </>
         ) : null}
+        <Cart />
       </div>
     </>
   );

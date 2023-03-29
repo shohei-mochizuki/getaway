@@ -197,6 +197,7 @@ function Detail() {
             add to favorite
           </button>
         </div>
+        <Cart />
       </section>
     </>
   );
