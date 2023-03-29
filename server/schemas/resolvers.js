@@ -136,7 +136,40 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
-    }
+    },
+    addFavourite: async (parent, { packageId, name, description, image, country, price, discount, quantity, rating, departure, duration, allinclusive, activities, region }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: {
+              savedProducts: { packageId, name, description, image, country, price, discount, quantity, rating, departure, duration, allinclusive, activities, region },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    deleteFavourite: async (parent, { packageId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              savedProducts: {
+                packageId: packageId
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   }
 };
 

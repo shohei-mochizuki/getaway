@@ -63,6 +63,8 @@ const typeDefs = gql`
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
+    addFavourite(packageId: String, name: String, description: String, image: String, country: String, price: Float, discount: Int, quantity: Int, rating: Int, departure: String, duration: Int, allinclusive: Boolean, activities: Boolean, region: String): User
+    deleteFavourite(packageId: String): User
   }
 `;
 
