@@ -186,8 +186,8 @@ export const REMOVE_FAVOURITE = gql`
 `;
 
 export const CHANGE_NAME = gql`
-  mutation removeFavourite($_id: String!) {
-    removeFavourite(_id: $_id) {
+  mutation changeName($firstName: String $lastName: String) {
+    changeName(firstName: $firstName lastName: $lastName) {
       firstName
       lastName
       # orders {
