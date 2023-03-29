@@ -160,7 +160,6 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
-    // removeFavourite: async (parent, { _id }) => {
     removeFavourite: async (parent, { _id }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
@@ -172,8 +171,21 @@ const resolvers = {
           },
           { new: true }
         );
-        // const userData = User.findById(context.user._id);
-
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    changeName: async (parent, { firstName, lastName }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $set: {
+              firstName: firstName,
+              lastName: lastName
+            },
+          },
+          { new: true }
+        );
       }
       throw new AuthenticationError('You need to be logged in!');
     },
