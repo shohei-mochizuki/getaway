@@ -100,18 +100,34 @@ function Detail() {
         style={{
           display: "flex",
           alignItems: "center",
+          justifyContent: "space-between",
           margin: "50px",
           padding: "50px",
-          backgroundColor: "lightgray",
+          backgroundColor: "white",
+          borderRadius: "5px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
         }}
       >
         <div style={{ flexGrow: 1 }}>
           <h2>{PackageDetails.title}</h2>
-
-          <img src={`/images/paris.jpeg`} alt={currentProduct.name} />
+          <img
+            src={`/images/paris.jpeg`}
+            alt={currentProduct.name}
+            style={{
+              width: "100%",
+              height: "auto",
+              objectFit: "cover",
+              borderRadius: "5px",
+            }}
+          />
         </div>
         <div
-          style={{ flexGrow: 1, backgroundColor: "darkgrey", padding: "40px" }}
+          style={{
+            flexGrow: 1,
+            backgroundColor: "white",
+            padding: "40px",
+            marginLeft: "20px",
+          }}
         >
           <div>
             <p>{PackageDetails.Category}</p>
@@ -121,18 +137,43 @@ function Detail() {
           <p>{PackageDetails.Duration}</p>
           <p>{PackageDetails.Offerdetails}</p>
         </div>
-        <div className="text-center">
+        <div className="text-center" style={{ flexGrow: 1 }}>
           <p>{PackageDetails.Discount}</p>
           <p>
             <strong> Price: </strong>
             {PackageDetails.Price}
           </p>
-          <button onClick={addToCart}>add to cart</button>
-          <button>add to favorite</button>
+          <button
+            onClick={addToCart}
+            style={{
+              backgroundColor: "#f47b20",
+              color: "white",
+              padding: "10px 20px",
+              borderRadius: "5px",
+              marginRight: "10px",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            add to cart
+          </button>
+          <button
+            style={{
+              backgroundColor: "#f47b20",
+              color: "white",
+              padding: "10px 20px",
+              borderRadius: "5px",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            add to favorite
+          </button>
         </div>
       </section>
     </>
   );
+  
 }
 
 export default Detail;
