@@ -154,14 +154,14 @@ function Detail() {
           }}
         >
           <div>
-            <p>{currentProduct.country}</p>
+            <p>Destination: {currentProduct.country}</p>
           </div>
-          <p>{currentProduct.description}</p>
-          <p>Rating: {currentProduct.rating}</p>
-          <p>departure time: {currentProduct.departure}</p>
-          <p>duration: {currentProduct.duration}</p>
-          <p>all-inclusive:{currentProduct.allinclusive}</p>
-          <p>activities:{currentProduct.activities}</p>
+          <p>Description: {currentProduct.description}</p>
+          <p>User Rating: {currentProduct.rating}</p>
+          <p>Departure: {(new Date(parseInt(currentProduct.departure))).toUTCString().slice(0,16)}</p>
+          <p>Duration: {currentProduct.duration} days</p>
+          {currentProduct.allinclusive ? <p>All-inclusive: Yes</p> : <p>All-inclusive: No</p>}
+          {currentProduct.activities ? <p>Activities: Included</p> : <p>Activities: Not included</p>}
         </div>
         <div className="text-center" style={{ flexGrow: 1 }}>
           <p style={{ color: "red" }}>save up to {currentProduct.discount}%!</p>
