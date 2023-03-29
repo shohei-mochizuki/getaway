@@ -142,7 +142,8 @@ const resolvers = {
       return { token, user };
     },
     addFavourite: async (parent, { _id }, context) => {
-      console.log(context);
+      console.log("HEREHRER");
+      console.log(_id);
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
@@ -159,19 +160,20 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
-    deleteFavourite: async (parent, { packageId }, context) => {
+    // removeFavourite: async (parent, { _id }) => {
+    removeFavourite: async (parent, { _id }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $pull: {
-              savedProducts: {
-                packageId: packageId
-              },
+              savedProducts: _id
             },
           },
           { new: true }
         );
+        // const userData = User.findById(context.user._id);
+
       }
       throw new AuthenticationError('You need to be logged in!');
     },
