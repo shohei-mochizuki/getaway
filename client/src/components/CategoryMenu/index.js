@@ -50,7 +50,7 @@ function CategoryMenu() {
       {categories.map((item) => (
         <button
           key={item._id}
-          className="rounded"
+          className="rounded m-1 p-1 bg-primary-emphasis text-white"
           onClick={() => {
             handleClick(item._id);
           }}
