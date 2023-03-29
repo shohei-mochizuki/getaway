@@ -137,13 +137,14 @@ const resolvers = {
 
       return { token, user };
     },
-    addFavourite: async (parent, { packageId, name, description, image, country, price, discount, quantity, rating, departure, duration, allinclusive, activities, region }, context) => {
+    addFavourite: async (parent, { packageId, name, description, image, country, price, discount, quantity, rating, departure, duration, allinclusive, activities, category }, context) => {
+      console.log(context);
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $addToSet: {
-              savedProducts: { packageId, name, description, image, country, price, discount, quantity, rating, departure, duration, allinclusive, activities, region },
+              savedProducts: { packageId, name, description, image, country, price, discount, quantity, rating, departure, duration, allinclusive, activities, category },
             },
           },
           {
@@ -152,7 +153,7 @@ const resolvers = {
           }
         );
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('Not logged in');
     },
     deleteFavourite: async (parent, { packageId }, context) => {
       if (context.user) {

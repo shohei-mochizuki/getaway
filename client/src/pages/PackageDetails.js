@@ -18,7 +18,7 @@ import {
 import { QUERY_PRODUCTS } from "../utils/queries";
 
 // IMPORT SAVE_FAVOURITE
-import { SAVE_FAVOURITE } from "../utils/mutations";
+import { ADD_FAVOURITE } from "../utils/mutations";
 
 import { idbPromise } from "../utils/helpers";
 import spinner from "../assets/spinner.gif";
@@ -46,7 +46,7 @@ function Detail() {
   const { products, cart } = state;
 
   // SET MUTATION
-  const [saveFavourite, { error }] = useMutation(SAVE_FAVOURITE);
+  const [addFavourite, { error }] = useMutation(ADD_FAVOURITE);
 
   useEffect(() => {
     // already in global store
@@ -106,7 +106,7 @@ function Detail() {
   };
 
   // DEFINE saveFavourite handler
-  const handleSaveFavourite = async () => {
+  const handleAddFavourite = async () => {
 
     console.log(currentProduct);
 
@@ -118,7 +118,7 @@ function Detail() {
     }
 
     try {
-      const { data } = await saveFavourite({
+      const { data } = await addFavourite({
         variables:  currentProduct 
       });
 
@@ -128,7 +128,6 @@ function Detail() {
       console.error(err);
     }
   };
-
 
   return (
     <>
@@ -195,7 +194,7 @@ function Detail() {
             add to cart
           </button>
           <button
-            onClick={handleSaveFavourite}
+            onClick={handleAddFavourite}
             style={{
               backgroundColor: "#f47b20",
               color: "white",
