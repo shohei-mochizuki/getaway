@@ -38,9 +38,10 @@ function OrderHistory() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const mutationResponse = await changeName({
+      const res = await changeName({
         variables: { firstName: formState.first, lastName: formState.last },
       });
+      setFormState({ first: "", last: "" });
       window.location.reload();
     } catch (e) {
       console.log(e);
@@ -55,6 +56,7 @@ function OrderHistory() {
     });
   };
 
+  console.log(formState);
 
   return (
     <>
