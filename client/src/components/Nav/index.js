@@ -1,21 +1,21 @@
 import React from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Nav.css";
 
 function Nav() {
-
   function showNavigation() {
     if (Auth.loggedIn()) {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/orderHistory">
-              Order History
+        <ul className="nav">
+          <li className="nav-item">
+            <Link to="/orderHistory" className="nav-link">
+              My Dashboard
             </Link>
           </li>
-          <li className="mx-1">
-            {/* this is not using the Link component to logout or user and then refresh the application to the start */}
-            <a href="/" onClick={() => Auth.logout()}>
+          <li className="nav-item">
+            <a href="/" className="nav-link" onClick={() => Auth.logout()}>
               Logout
             </a>
           </li>
@@ -23,14 +23,14 @@ function Nav() {
       );
     } else {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/signup">
+        <ul className="nav">
+          <li className="nav-item">
+            <Link to="/signup" className="nav-link">
               Signup
             </Link>
           </li>
-          <li className="mx-1">
-            <Link to="/login">
+          <li className="nav-item">
+            <Link to="/login" className="nav-link">
               Login
             </Link>
           </li>
@@ -40,16 +40,17 @@ function Nav() {
   }
 
   return (
-    <header className="flex-row px-1">
-      <h1>
-        <Link to="/">
-          <span role="img" aria-label="shopping bag">🛍️</span>
-          -Shop-Shop
-        </Link>
-      </h1>
-
-      <nav>
-        {showNavigation()}
+    <header>
+      <nav className="navbar">
+        <div className="container">
+          <h1>
+            <Link to="/" className="navbar-brand">
+              <span role="img" aria-label="air-plane">✈️</span>
+              Getaway
+            </Link>
+          </h1>
+          {showNavigation()}
+        </div>
       </nav>
     </header>
   );
