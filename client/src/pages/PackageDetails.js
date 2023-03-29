@@ -4,6 +4,9 @@ import { Link, useParams } from "react-router-dom";
 // IMPORT useMutation
 import { useQuery, useMutation } from "@apollo/client";
 
+// IMPORT AUTH
+import Auth from "../utils/auth";
+
 import Cart from "../components/Cart";
 import { useStoreContext } from "../utils/GlobalState";
 import {
@@ -105,10 +108,7 @@ function Detail() {
   // DEFINE saveFavourite handler
   const handleSaveFavourite = async () => {
 
-    // Find the book in `searchedBooks` state by the matching id
-    const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-
-    console.log(bookToSave);
+    console.log(currentProduct);
 
     // Get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -118,12 +118,12 @@ function Detail() {
     }
 
     try {
-      const { data } = await saveBook({
-        variables:  bookToSave 
+      const { data } = await saveFavourite({
+        variables:  currentProduct 
       });
 
       // If book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      // setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
       console.error(err);
     }
