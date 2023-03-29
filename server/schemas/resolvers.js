@@ -28,16 +28,20 @@ const resolvers = {
     },
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate({
+        const user = await User.findById(context.user._id)
+        .populate({
           path: 'orders.products',
           populate: 'category'
-        });
+        })
+        .populate({
+          path: 'savedProducts',
+          populate: 'category'
+        })
+        ;
 
-        user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
-
+        //user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
         return user;
       }
-
       throw new AuthenticationError('Not logged in');
     },
     order: async (parent, { _id }, context) => {
@@ -136,7 +140,41 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
-    }
+    },
+    addFavourite: async (parent, { _id }, context) => {
+      console.log(context);
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: {
+              savedProducts: { _id },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('Not logged in');
+    },
+    deleteFavourite: async (parent, { packageId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              savedProducts: {
+                packageId: packageId
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   }
 };
 

@@ -69,6 +69,7 @@ export const QUERY_CATEGORIES = gql`
 export const QUERY_USER = gql`
   {
     user {
+      _id
       firstName
       lastName
       orders {
@@ -90,6 +91,7 @@ export const QUERY_USER = gql`
           allinclusive
           activities
           category {
+            _id
             region
           }
         }
@@ -110,6 +112,7 @@ export const QUERY_USER = gql`
         allinclusive
         activities
         category {
+          _id
           region
         }
       }

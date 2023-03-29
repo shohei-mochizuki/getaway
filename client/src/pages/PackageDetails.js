@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+
+// IMPORT useMutation
+import { useQuery, useMutation } from "@apollo/client";
+
+// IMPORT AUTH
+import Auth from "../utils/auth";
 
 import Cart from "../components/Cart";
 import { useStoreContext } from "../utils/GlobalState";
@@ -11,6 +16,10 @@ import {
   UPDATE_PRODUCTS,
 } from "../utils/actions";
 import { QUERY_PRODUCTS } from "../utils/queries";
+
+// IMPORT SAVE_FAVOURITE
+import { ADD_FAVOURITE } from "../utils/mutations";
+
 import { idbPromise } from "../utils/helpers";
 import spinner from "../assets/spinner.gif";
 
@@ -35,6 +44,9 @@ function Detail() {
   const { loading, data } = useQuery(QUERY_PRODUCTS);
 
   const { products, cart } = state;
+
+  // SET MUTATION
+  const [addFavourite, { error }] = useMutation(ADD_FAVOURITE);
 
   useEffect(() => {
     // already in global store
@@ -91,6 +103,30 @@ function Detail() {
     });
 
     idbPromise("cart", "delete", { ...currentProduct });
+  };
+
+  // DEFINE saveFavourite handler
+  const handleAddFavourite = async () => {
+
+    console.log(currentProduct);
+
+    // Get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const { data } = await addFavourite({
+        variables:  {_id: currentProduct._id} 
+      });
+
+      // If book successfully saves to user's account, save book id to state
+      // setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -158,6 +194,7 @@ function Detail() {
             add to cart
           </button>
           <button
+            onClick={handleAddFavourite}
             style={{
               backgroundColor: "#f47b20",
               color: "white",
