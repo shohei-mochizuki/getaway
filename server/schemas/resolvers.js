@@ -137,14 +137,14 @@ const resolvers = {
 
       return { token, user };
     },
-    addFavourite: async (parent, { packageId, name, description, image, country, price, discount, quantity, rating, departure, duration, allinclusive, activities, category }, context) => {
+    addFavourite: async (parent, { _id }, context) => {
       console.log(context);
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $addToSet: {
-              savedProducts: { packageId, name, description, image, country, price, discount, quantity, rating, departure, duration, allinclusive, activities, category },
+              savedProducts: { _id },
             },
           },
           {

@@ -119,7 +119,7 @@ function Detail() {
 
     try {
       const { data } = await addFavourite({
-        variables:  currentProduct 
+        variables:  {_id: currentProduct._id} 
       });
 
       // If book successfully saves to user's account, save book id to state

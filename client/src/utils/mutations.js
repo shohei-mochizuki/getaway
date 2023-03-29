@@ -61,62 +61,59 @@ export const ADD_USER = gql`
 
 export const ADD_FAVOURITE = gql`
   mutation addFavourite(
-    $packageId: String,
-    $name: String,
-    $description: String, 
-    $image: String,
-    $country: String,
-    $price: Float,
-    $discount: Int,
-    $quantity: Int,
-    $rating: Int,
-    $departure: String,
-    $duration: Int,
-    $allinclusive: Boolean,
-    $activities: Boolean,
-    $category: ID, 
+    $_id: ID,
+    # $packageId: String,
+    # $name: String,
+    # $description: String, 
+    # $image: String,
+    # $country: String,
+    # $price: Float,
+    # $discount: Int,
+    # $quantity: Int,
+    # $rating: Int,
+    # $departure: String,
+    # $duration: Int,
+    # $allinclusive: Boolean,
+    # $activities: Boolean,
   ) {
     addFavourite(
-      packageId: $packageId
-      name: $name,
-      description: $description, 
-      image: $image,
-      country: $country,
-      price: $price,
-      discount: $discount,
-      quantity: $quantity,
-      rating: $rating,
-      departure: $departure,
-      duration: $duration,
-      allinclusive: $allinclusive,
-      activities: $activities,
-      category: $category, 
+      _id: $_id
+      # packageId: $packageId
+      # name: $name,
+      # description: $description, 
+      # image: $image,
+      # country: $country,
+      # price: $price,
+      # discount: $discount,
+      # quantity: $quantity,
+      # rating: $rating,
+      # departure: $departure,
+      # duration: $duration,
+      # allinclusive: $allinclusive,
+      # activities: $activities,
     ) {
       firstName
       lastName
-      orders {
-        _id
-        purchaseDate
-        products {
-          _id
-          packageId
-          name
-          description
-          image
-          country
-          price
-          discount
-          quantity
-          rating
-          departure
-          duration
-          allinclusive
-          activities
-          category {
-            region
-          }
-        }
-      }
+      # orders {
+      #   _id
+      #   purchaseDate
+      #   products {
+      #     _id
+      #     packageId
+      #     name
+      #     description
+      #     image
+      #     country
+      #     price
+      #     discount
+      #     quantity
+      #     rating
+      #     departure
+      #     duration
+      #     allinclusive
+      #     activities
+      #   }
+      # }
       savedProducts {
         _id
         packageId
@@ -132,9 +129,6 @@ export const ADD_FAVOURITE = gql`
         duration
         allinclusive
         activities
-        category {
-          region
-        }
       }
     }
   }
