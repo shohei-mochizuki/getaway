@@ -4,7 +4,20 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Nav.css";
 
+import { useStoreContext } from '../../utils/GlobalState';
+import { UPDATE_CURRENT_CATEGORY } from '../../utils/actions';
+
 function Nav() {
+
+  const [state, dispatch] = useStoreContext();
+
+  const resetCategory = () => {
+    dispatch({
+      type: UPDATE_CURRENT_CATEGORY,
+      currentCategory: "",
+    });
+  };
+
   function showNavigation() {
     if (Auth.loggedIn()) {
       return (
@@ -45,8 +58,12 @@ function Nav() {
         <div className="container">
           <h1>
             <Link to="/" className="navbar-brand">
-              <span role="img" aria-label="air-plane">✈️</span>
-              Getaway
+              <button
+              onClick={resetCategory}
+              className="bg-white">
+                <span role="img" aria-label="air-plane">✈️</span>
+                Getaway
+              </button>
             </Link>
           </h1>
           {showNavigation()}

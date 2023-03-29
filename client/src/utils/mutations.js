@@ -184,3 +184,54 @@ export const REMOVE_FAVOURITE = gql`
     }
   }
 `;
+
+export const CHANGE_NAME = gql`
+  mutation removeFavourite($_id: String!) {
+    removeFavourite(_id: $_id) {
+      firstName
+      lastName
+      # orders {
+      #   _id
+      #   purchaseDate
+      #   products {
+      #     _id
+      #     packageId
+      #     name
+      #     description
+      #     image
+      #     country
+      #     price
+      #     discount
+      #     quantity
+      #     rating
+      #     departure
+      #     duration
+      #     allinclusive
+      #     activities
+      #     category {
+      #       region
+      #     }
+      #   }
+      # }
+      # savedProducts {
+      #   _id
+      #   packageId
+      #   name
+      #   description
+      #   image
+      #   country
+      #   price
+      #   discount
+      #   quantity
+      #   rating
+      #   departure
+      #   duration
+      #   allinclusive
+      #   activities
+      #   category {
+      #     region
+      #   }
+      # }
+    }
+  }
+`;
