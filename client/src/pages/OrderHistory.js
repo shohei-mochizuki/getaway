@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER } from '../utils/queries';
-import { REMOVE_FAVOURITE } from '../utils/mutations';
+import { REMOVE_FAVOURITE, CHANGE_NAME } from '../utils/mutations';
 
 function OrderHistory() {
+  // Set up queries and mutations
   const { data } = useQuery(QUERY_USER);
   const [removeFavourite, { error }] = useMutation(REMOVE_FAVOURITE);
+  const [changeName, { err }] = useMutation(CHANGE_NAME);
 
   let user;
 
@@ -23,11 +25,36 @@ function OrderHistory() {
 
     try {
       const { data } = await removeFavourite({
-        variables: { _id: _id}})    
+        variables: { _id: _id}}); 
+        window.location.reload();
     } catch (err) {
       console.error(err);
     }
   };
+
+  // Set up local state
+  const [formState, setFormState] = useState({ first: user.fistName, last: user.lastName });
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const mutationResponse = await changeName({
+        variables: { firstName: formState.first, lastName: formState.last },
+      });
+      window.location.reload();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
 
   return (
     <>
@@ -61,7 +88,7 @@ function OrderHistory() {
               </div>
             </div>
             <h3 className="my-4">
-              Order History
+              Booking History
             </h3>
             {user.orders.map((order) => (
               <div key={order._id} className="m-3 p-3 rounded rounded-3 bg-primary">
@@ -82,6 +109,36 @@ function OrderHistory() {
                   ))}
                 </div>
               </div>))}
+              <h3 className="my-4">
+              Change your name - Mistakes happen!
+              </h3>
+              <div className="m-3 p-3 rounded rounded-3 bg-primary">
+                <form onSubmit={handleFormSubmit}>
+                  <div className="flex-row space-between my-2">
+                    <label htmlFor="firstName">First name:</label>
+                    <input
+                      placeholder=""
+                      name="first"
+                      type="text"
+                      id="first"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="flex-row space-between my-2">
+                    <label htmlFor="lastName">Last name:</label>
+                    <input
+                      placeholder=""
+                      name="last"
+                      type="text"
+                      id="last"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="flex-row flex-end">
+                    <button type="submit">Submit</button>
+                  </div>
+                </form>
+              </div>
           </>
         ) : null}
       </div>
