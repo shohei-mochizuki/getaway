@@ -33,7 +33,7 @@ function OrderHistory() {
   };
 
   // Set up local state
-  const [formState, setFormState] = useState({ first: user.fistName, last: user.lastName });
+  const [formState, setFormState] = useState({ first: "", last: "" });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
