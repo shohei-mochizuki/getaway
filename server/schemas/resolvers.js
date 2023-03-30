@@ -170,7 +170,11 @@ const resolvers = {
             },
           },
           { new: true }
-        );
+        )
+        .populate({
+          path: 'savedProducts',
+          populate: 'category'
+        });
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -185,7 +189,11 @@ const resolvers = {
             },
           },
           { new: true }
-        );
+        )
+        .populate({
+          path: 'savedProducts',
+          populate: 'category'
+        });
       }
       throw new AuthenticationError('You need to be logged in!');
     },

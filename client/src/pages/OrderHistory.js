@@ -4,22 +4,42 @@ import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER } from "../utils/queries";
 import { REMOVE_FAVOURITE, CHANGE_NAME } from "../utils/mutations";
+import { useStoreContext } from "../utils/GlobalState";
+import {
+  UPDATE_USER,
+} from "../utils/actions";
 
 import Cart from "../components/Cart";
 
 function OrderHistory() {
+  // Set up using context
+  const [state, dispatch] = useStoreContext();
+
   // Set up queries and mutations
-  const { data } = useQuery(QUERY_USER);
+  const { loading, data: userData } = useQuery(QUERY_USER);
   const [removeFavourite, { error }] = useMutation(REMOVE_FAVOURITE);
   const [changeName, { err }] = useMutation(CHANGE_NAME);
 
+  // let stateChangeRequest = false;
+
+  useEffect(() => {
+    if (userData) {
+      dispatch({
+        type: UPDATE_USER,
+        favourite: userData.user.savedProducts,
+        first: userData.user.firstName,
+        last: userData.user.lastName,
+      });
+    }
+  }, [userData, loading, dispatch]);
+
   let user;
 
-  if (data) {
-    user = data.user;
+  if (userData) {
+    user = userData.user;
   }
 
-  console.log(data?.user);
+  // console.log(data?.user);
 
   const handleRemoveFavourite = async (_id) => {
     console.log("BUTTON CLICKED");
@@ -28,7 +48,8 @@ function OrderHistory() {
       const { data } = await removeFavourite({
         variables: { _id: _id },
       });
-      window.location.reload();
+      console.log("THIS IS RETURN");
+      console.log(data);
     } catch (err) {
       console.error(err);
     }
@@ -40,11 +61,12 @@ function OrderHistory() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await changeName({
+      const { data } = await changeName({
         variables: { firstName: formState.first, lastName: formState.last },
       });
-      setFormState({ first: "", last: "" });
-      window.location.reload();
+      console.log("NAME CHANGE");
+      console.log(data);
+      setFormState({first: "", last: ""})
     } catch (e) {
       console.log(e);
     }
@@ -58,7 +80,10 @@ function OrderHistory() {
     });
   };
 
-  console.log(formState);
+  console.log("THIS IS STATE");
+  console.log(state);
+  console.log(userData)
+  console.log(user)
 
   return (
     <>
@@ -68,13 +93,13 @@ function OrderHistory() {
         {user ? (
           <>
             <h2 className="mb-4">
-              Dashboard for {user.firstName} {user.lastName}
+              Dashboard for {state.first} {state.last}
             </h2>
             <h3 className="my-4">Favourite Packages</h3>
             <div className="m-3 p-3 rounded rounded-3 bg-primary">
               <div className="flex-row justify-content-around">
-                {user.savedProducts.map(
-                  ({ _id, image, name, price, packageId }, index) => (
+                {state.favourite.map(
+                  ({ _id, image, name, price }, index) => (
                     <div key={index} className="card px-1 py-1">
                       <Link to={`/products/${_id}`}>
                         <img alt={name} src={`/images/${image}`} />
@@ -124,6 +149,7 @@ function OrderHistory() {
                   <input
                     placeholder=""
                     name="first"
+                    value={formState.first}
                     type="text"
                     id="first"
                     onChange={handleChange}
@@ -134,6 +160,7 @@ function OrderHistory() {
                   <input
                     placeholder=""
                     name="last"
+                    value={formState.last}
                     type="text"
                     id="last"
                     onChange={handleChange}
