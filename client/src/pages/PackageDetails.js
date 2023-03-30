@@ -116,6 +116,13 @@ function Detail() {
     }
   };
 
+// This function checks whether the user is currently logged in
+function isLoggedIn() {
+  // It calls the loggedIn method of an object called Auth to determine the user's login status
+  return Auth.loggedIn();
+}
+
+// This component displays the details of a travel package, including the name, image, destination, description, user rating, departure date, duration, all-inclusive status, and activities. It also displays the price and a button to add the package to the cart. If the user is logged in, it also displays a button to add the package to their favorites. The component uses props to display the details of the current product and includes a Cart component to display the contents of the user's cart.
   return (
     <>
       <article className="container text-center"></article>
@@ -158,10 +165,23 @@ function Detail() {
           </div>
           <p>Description: {currentProduct.description}</p>
           <p>User Rating: {currentProduct.rating}</p>
-          <p>Departure: {(new Date(parseInt(currentProduct.departure))).toUTCString().slice(0,16)}</p>
+          <p>
+            Departure:{" "}
+            {new Date(parseInt(currentProduct.departure))
+              .toUTCString()
+              .slice(0, 16)}
+          </p>
           <p>Duration: {currentProduct.duration} days</p>
-          {currentProduct.allinclusive ? <p>All-inclusive: Yes</p> : <p>All-inclusive: No</p>}
-          {currentProduct.activities ? <p>Activities: Included</p> : <p>Activities: Not included</p>}
+          {currentProduct.allinclusive ? (
+            <p>All-inclusive: Yes</p>
+          ) : (
+            <p>All-inclusive: No</p>
+          )}
+          {currentProduct.activities ? (
+            <p>Activities: Included</p>
+          ) : (
+            <p>Activities: Not included</p>
+          )}
         </div>
         <div className="text-center" style={{ flexGrow: 1 }}>
           <p style={{ color: "red" }}>save up to {currentProduct.discount}%!</p>
@@ -183,19 +203,21 @@ function Detail() {
           >
             add to cart
           </button>
-          <button
-            onClick={handleAddFavourite}
-            style={{
-              backgroundColor: "#f47b20",
-              color: "white",
-              padding: "10px 20px",
-              borderRadius: "5px",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            add to favorite
-          </button>
+          {isLoggedIn() ? (
+            <button
+              onClick={handleAddFavourite}
+              style={{
+                backgroundColor: "#f47b20",
+                color: "white",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              add to favorite
+            </button>
+          ) : null}
         </div>
         <Cart />
       </section>
