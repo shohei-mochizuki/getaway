@@ -41,7 +41,14 @@ function ProductList() {
     return state.products.filter(
       (product) => product.category._id === currentCategory
     );
-  }
+  };
+
+  console.log("----------data------------");
+  console.log(data);
+  console.log("----------STATE PRODUCTS------------");
+  console.log(state.products);
+  console.log("----------FILTER PRODUCT------------");
+  console.log(filterProducts());
 
   return (
     <div className="my-2">

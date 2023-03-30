@@ -129,6 +129,9 @@ export const ADD_FAVOURITE = gql`
         duration
         allinclusive
         activities
+        category {
+          region
+        }
       }
     }
   }
@@ -162,25 +165,25 @@ export const REMOVE_FAVOURITE = gql`
       #     }
       #   }
       # }
-      # savedProducts {
-      #   _id
-      #   packageId
-      #   name
-      #   description
-      #   image
-      #   country
-      #   price
-      #   discount
-      #   quantity
-      #   rating
-      #   departure
-      #   duration
-      #   allinclusive
-      #   activities
-      #   category {
-      #     region
-      #   }
-      # }
+      savedProducts {
+        _id
+        packageId
+        name
+        description
+        image
+        country
+        price
+        discount
+        quantity
+        rating
+        departure
+        duration
+        allinclusive
+        activities
+        category {
+          region
+        }
+      }
     }
   }
 `;
@@ -213,25 +216,25 @@ export const CHANGE_NAME = gql`
       #     }
       #   }
       # }
-      # savedProducts {
-      #   _id
-      #   packageId
-      #   name
-      #   description
-      #   image
-      #   country
-      #   price
-      #   discount
-      #   quantity
-      #   rating
-      #   departure
-      #   duration
-      #   allinclusive
-      #   activities
-      #   category {
-      #     region
-      #   }
-      # }
+      savedProducts {
+        _id
+        packageId
+        name
+        description
+        image
+        country
+        price
+        discount
+        quantity
+        rating
+        departure
+        duration
+        allinclusive
+        activities
+        category {
+          region
+        }
+      }
     }
   }
 `;
