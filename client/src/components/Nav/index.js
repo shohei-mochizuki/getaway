@@ -3,12 +3,11 @@ import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Nav.css";
-
-import { useStoreContext } from '../../utils/GlobalState';
-import { UPDATE_CURRENT_CATEGORY } from '../../utils/actions';
+import navPicture from "../../assets/navPicture.jpg";
+import { useStoreContext } from "../../utils/GlobalState";
+import { UPDATE_CURRENT_CATEGORY } from "../../utils/actions";
 
 function Nav() {
-
   const [state, dispatch] = useStoreContext();
 
   const resetCategory = () => {
@@ -58,10 +57,10 @@ function Nav() {
         <div className="container">
           <h1>
             <Link to="/" className="navbar-brand">
-              <button
-              onClick={resetCategory}
-              className="bg-white">
-                <span role="img" aria-label="air-plane">✈️</span>
+              <button onClick={resetCategory} className="bg-white">
+                <span role="img" aria-label="air-plane">
+                  ✈️
+                </span>
                 Getaway
               </button>
             </Link>
@@ -69,6 +68,17 @@ function Nav() {
           {showNavigation()}
         </div>
       </nav>
+      <div
+        className="container-fluid"
+        style={{
+          backgroundImage: `url(${navPicture})`,
+          backgroundRepeat: "repeat-x",
+          height: "70vh",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundAttachment: "fixed",
+        }}
+      ></div>
     </header>
   );
 }
