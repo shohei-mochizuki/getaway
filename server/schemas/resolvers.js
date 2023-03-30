@@ -156,7 +156,11 @@ const resolvers = {
             new: true,
             runValidators: true,
           }
-        );
+        )
+        .populate({
+          path: 'savedProducts',
+          populate: 'category'
+        });
       }
       throw new AuthenticationError('Not logged in');
     },
