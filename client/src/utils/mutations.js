@@ -129,6 +129,9 @@ export const ADD_FAVOURITE = gql`
         duration
         allinclusive
         activities
+        category {
+          region
+        }
       }
     }
   }
