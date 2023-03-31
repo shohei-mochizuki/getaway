@@ -1,11 +1,12 @@
+// Import libraries and necessary elements
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const { authMiddleware } = require("./utils/auth");
-
 const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
 
+// Set up express and Apollo server with typeDefs, resolvers and authentification
 const PORT = process.env.PORT || 3001;
 const app = express();
 const server = new ApolloServer({
@@ -14,6 +15,7 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
+// Set up express middlewares
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -24,6 +26,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
+// Any get requests go to index.html (path needs to be *)
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
