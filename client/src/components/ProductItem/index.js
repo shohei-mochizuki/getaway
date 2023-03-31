@@ -33,11 +33,18 @@ function ProductItem(item) {
     }
   };
 
+  const imageStyle ={
+    height: "20vh",
+    width: "100%",
+    "object-fit": "cover"
+  };
+
   return (
     <div className="card  card shadow m-2 px-1 py-1">
       <Link to={`/products/${_id}`}>
         <p>{country}</p>
-        <img alt={name} src={`/images/${image} `} className=" img-fluid " />
+        {/* <img alt={name} src={`/images/${image} `} className=" img-fluid " /> */}
+        <img alt={name} src={`/images/${image} `} style={imageStyle} />
         <p>{name}</p>
       </Link>
       <div>
