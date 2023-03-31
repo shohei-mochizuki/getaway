@@ -1,5 +1,5 @@
 .footer {
-  background-color: #f3a847;
+  background-color: #74b6cd;
   padding: 20px;
   margin-top: 100px;
   text-align: center;
@@ -19,9 +19,9 @@
 }
 
 .made-by-container {
-  background-color: #f3a847;
   padding-top: 5px;
   margin-bottom: 5px;
+  background-color: #74b6cd;
 }
 .info {
   margin-right: 10px;
