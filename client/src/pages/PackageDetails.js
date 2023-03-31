@@ -23,6 +23,8 @@ import { ADD_FAVOURITE } from "../utils/mutations";
 import { idbPromise } from "../utils/helpers";
 import spinner from "../assets/spinner.gif";
 
+import "./assets/css/packageDetails.css";
+
 function Detail() {
   const [state, dispatch] = useStoreContext();
   const { id } = useParams();
@@ -123,47 +125,22 @@ function isLoggedIn() {
 }
 
 // This component displays the details of a travel package, including the name, image, destination, description, user rating, departure date, duration, all-inclusive status, and activities. It also displays the price and a button to add the package to the cart. If the user is logged in, it also displays a button to add the package to their favorites. The component uses props to display the details of the current product and includes a Cart component to display the contents of the user's cart.
-  return (
-    <>
-      <article className="container text-center"></article>
-      <section
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          margin: "50px",
-          padding: "50px",
-          backgroundColor: "white",
-          borderRadius: "5px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <div style={{ flexGrow: 1 }}>
-          <h2 style={{ fontWeight: "bold" }}>PackageDetails</h2>
-          <p>{currentProduct.name}</p>
+return (
+  <>
+    <div className="container text-center">
+      <div className="package-details-section">
+        <div>
+          <div className="package-details-header">
+            <h2 style={{ fontWeight: "bold" }}>Package Details</h2>
+            <p>{currentProduct.name} | {currentProduct.country}</p>
+          </div>
           <img
             src={`/images/${currentProduct.image}`}
             alt={currentProduct.name}
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "cover",
-              borderRadius: "5px",
-            }}
           />
         </div>
-        <div
-          style={{
-            flexGrow: 1,
-            backgroundColor: "white",
-            padding: "40px",
-            marginLeft: "20px",
-          }}
-        >
-          <div>
-            <p>Destination: {currentProduct.country}</p>
-          </div>
-          <p>Description: {currentProduct.description}</p>
+        <div className="package-details-info">
+          <p>{currentProduct.description}</p>
           <p>User Rating: {currentProduct.rating}</p>
           <p>
             Departure:{" "}
@@ -183,46 +160,27 @@ function isLoggedIn() {
             <p>Activities: Not included</p>
           )}
         </div>
-        <div className="text-center" style={{ flexGrow: 1 }}>
-          <p style={{ color: "red" }}>save up to {currentProduct.discount}%!</p>
+        <div className="action-bg">
+          <p className="save-up">save up to {currentProduct.discount}%!</p>
           <p>
             <strong> Price: </strong>
-            {currentProduct.Price}
+            {currentProduct.price}
           </p>
-          <button
-            onClick={addToCart}
-            style={{
-              backgroundColor: "#f47b20",
-              color: "white",
-              padding: "10px 20px",
-              borderRadius: "5px",
-              marginRight: "10px",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
+          <button className="btn" onClick={addToCart}>
             add to cart
           </button>
           {isLoggedIn() ? (
-            <button
-              onClick={handleAddFavourite}
-              style={{
-                backgroundColor: "#f47b20",
-                color: "white",
-                padding: "10px 20px",
-                borderRadius: "5px",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
+            <button className="btn" onClick={handleAddFavourite}>
               add to favorite
             </button>
           ) : null}
         </div>
-        <Cart />
-      </section>
-    </>
-  );
+      </div>
+    </div>
+    <Cart />
+  </>
+);
+
 }
 
 export default Detail;
