@@ -1,33 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-
-// IMPORT useMutation
+import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
-
-// IMPORT AUTH
 import Auth from "../utils/auth";
-
-
-// TEST
-import { UPDATE_USER } from "../utils/actions";
-
-
 import Cart from "../components/Cart";
 import { useStoreContext } from "../utils/GlobalState";
-import {
-  REMOVE_FROM_CART,
-  UPDATE_CART_QUANTITY,
-  ADD_TO_CART,
-  UPDATE_PRODUCTS,
-} from "../utils/actions";
+import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY, ADD_TO_CART, UPDATE_PRODUCTS } from "../utils/actions";
 import { QUERY_PRODUCTS } from "../utils/queries";
-
-// IMPORT SAVE_FAVOURITE
 import { ADD_FAVOURITE } from "../utils/mutations";
-
 import { idbPromise } from "../utils/helpers";
-import spinner from "../assets/spinner.gif";
-
 import "./assets/css/packageDetails.css";
 
 function Detail() {
@@ -91,18 +71,8 @@ function Detail() {
     }
   };
 
-  const removeFromCart = () => {
-    dispatch({
-      type: REMOVE_FROM_CART,
-      _id: currentProduct._id,
-    });
-
-    idbPromise("cart", "delete", { ...currentProduct });
-  };
-
-  // DEFINE saveFavourite handler
+  // Save this product/package to favourite (user's savedProduct) in the database
   const handleAddFavourite = async () => {
-    console.log(currentProduct);
 
     // Get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -117,8 +87,6 @@ function Detail() {
       });
       window.location.reload();
       alert("This trip is added to your favourite! Go to My Dashboard!");
-      // If book successfully saves to user's account, save book id to state
-      // setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
       console.error(err);
     }
