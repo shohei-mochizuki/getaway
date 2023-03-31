@@ -22,7 +22,7 @@ function Nav() {
       return (
         <ul className="nav">
           <li className="nav-item">
-            <Link to="/orderHistory" className="nav-link">
+            <Link to="/dashboard" className="nav-link">
               My Dashboard
             </Link>
           </li>
