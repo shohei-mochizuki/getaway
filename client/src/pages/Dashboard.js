@@ -41,7 +41,6 @@ function Dashboard() {
 
   // Function to remove products from favourite in the database
   const handleRemoveFavourite = async (_id) => {
-
     try {
       const { data } = await removeFavourite({
         variables: { _id: _id },
@@ -160,11 +159,12 @@ function Dashboard() {
                 style={{ border: "2px solid #74b6cd", opacity: "0.9" }}
               >
                 <h3
-                style={{
-                  "font-family": "cursive",
-                  "font-size": "1.2rem",
-                  "font-weight": "bold"
-                }}>
+                  style={{
+                    "font-family": "cursive",
+                    "font-size": "1.2rem",
+                    "font-weight": "bold",
+                  }}
+                >
                   Booked on{" "}
                   {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
                 </h3>
