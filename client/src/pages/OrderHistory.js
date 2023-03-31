@@ -20,7 +20,8 @@ function OrderHistory() {
   const [removeFavourite, { error }] = useMutation(REMOVE_FAVOURITE);
   const [changeName, { err }] = useMutation(CHANGE_NAME);
 
-  // let stateChangeRequest = false;
+  // Set local catate for favourites
+  const [favState, setFavState] = useState([]);
 
   useEffect(() => {
     if (userData) {
@@ -30,6 +31,7 @@ function OrderHistory() {
         first: userData.user.firstName,
         last: userData.user.lastName,
       });
+      setFavState(userData.user.savedProducts);
     }
   }, [userData, loading, dispatch]);
 
@@ -50,6 +52,7 @@ function OrderHistory() {
       });
       console.log("THIS IS RETURN");
       console.log(data);
+      setFavState(data.removeFavourite.savedProducts);
     } catch (err) {
       console.error(err);
     }
@@ -64,8 +67,6 @@ function OrderHistory() {
       const { data } = await changeName({
         variables: { firstName: formState.first, lastName: formState.last },
       });
-      console.log("NAME CHANGE");
-      console.log(data);
       setFormState({first: "", last: ""})
     } catch (e) {
       console.log(e);
@@ -80,10 +81,7 @@ function OrderHistory() {
     });
   };
 
-  console.log("THIS IS STATE");
-  console.log(state);
-  console.log(userData)
-  console.log(user)
+  console.log(favState);
 
   return (
     <>
@@ -98,7 +96,7 @@ function OrderHistory() {
             <h3 className="my-4">Favourite Packages</h3>
             <div className="m-3 p-3 rounded rounded-3 bg-primary">
               <div className="flex-row justify-content-around">
-                {state.favourite.map(
+                {favState.map(
                   ({ _id, image, name, price }, index) => (
                     <div key={index} className="card px-1 py-1">
                       <Link to={`/products/${_id}`}>
