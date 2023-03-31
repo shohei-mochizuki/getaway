@@ -103,7 +103,7 @@ function Dashboard() {
             <h3
               className="my-4 font-weight-bold fs-4 px-3"
               style={{
-                "font-family": "Libre Baskerville', serif",
+                "font-family": "cursive",
                 "font-size": "1.5rem",
               }}
             >
@@ -115,7 +115,7 @@ function Dashboard() {
             >
               <div className="flex-row justify-content-around">
                 {favState.map(({ _id, country, image, name, price }, index) => (
-                  <div key={index} className="card px-1 py-1">
+                  <div key={index} className="card ">
                     <div
                       className="rounded"
                       style={{
@@ -126,10 +126,16 @@ function Dashboard() {
                       {country}
                     </div>
                     <Link to={`/products/${_id}`}>
-                      <img alt={name} src={`/images/${image}`} />
-                      <p>{name}</p>
+                      <img
+                        style={{
+                          "margin-top": "10px",
+                        }}
+                        alt={name}
+                        src={`/images/${image}`}
+                      />
+                      <p style={{ color: "#000" }}>{name}</p>
                     </Link>
-                    <div>
+                    <div style={{}}>
                       <span>${price}</span>
                     </div>
                     <button
