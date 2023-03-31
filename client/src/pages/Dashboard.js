@@ -11,7 +11,7 @@ import {
 
 import Cart from "../components/Cart";
 
-function OrderHistory() {
+function Dashboard() {
   // Set up using context
   const [state, dispatch] = useStoreContext();
 
@@ -177,4 +177,4 @@ function OrderHistory() {
   );
 }
 
-export default OrderHistory;
+export default Dashboard;
