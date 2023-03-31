@@ -7,6 +7,11 @@ import { useQuery, useMutation } from "@apollo/client";
 // IMPORT AUTH
 import Auth from "../utils/auth";
 
+
+// TEST
+import { UPDATE_USER } from "../utils/actions";
+
+
 import Cart from "../components/Cart";
 import { useStoreContext } from "../utils/GlobalState";
 import {
@@ -110,7 +115,8 @@ function Detail() {
       const { data } = await addFavourite({
         variables: { _id: currentProduct._id },
       });
-
+      window.location.reload();
+      alert("This trip is added to your favourite❤️! Go to My Dashboard!");
       // If book successfully saves to user's account, save book id to state
       // setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
