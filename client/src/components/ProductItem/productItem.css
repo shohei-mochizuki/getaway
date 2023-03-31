@@ -1,4 +1,31 @@
 .card {
   width: 25%;
   text-align: center;
+  padding: 0px;
 }
+
+.p-country {
+  background-color: #74b6cd;
+  padding: 20px;
+  margin-bottom: 0;
+  color: white;
+  border-radius: 5px 5px 0px 0px;
+}
+
+img {
+  max-width: none;
+}
+
+a {
+  text-decoration: none;
+}
+.p-name {
+  color: black;
+}
+
+.p-price {
+  color: #2b5e70;
+  font-weight: bold;
+  font-size: x-large;
+}
+
