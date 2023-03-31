@@ -18,7 +18,7 @@ function Dashboard() {
   const [removeFavourite, { error }] = useMutation(REMOVE_FAVOURITE);
   const [changeName, { err }] = useMutation(CHANGE_NAME);
 
-  // Set local catate for favourites
+  // Set local state for favourites/savedProducts
   const [favState, setFavState] = useState([]);
 
   useEffect(() => {
@@ -39,26 +39,23 @@ function Dashboard() {
     user = userData.user;
   }
 
-  // console.log(data?.user);
-
+  // Function to remove products from favourite in the database
   const handleRemoveFavourite = async (_id) => {
-    console.log("BUTTON CLICKED");
 
     try {
       const { data } = await removeFavourite({
         variables: { _id: _id },
       });
-      console.log("THIS IS RETURN");
-      console.log(data);
       setFavState(data.removeFavourite.savedProducts);
     } catch (err) {
       console.error(err);
     }
   };
 
-  // Set up local state
+  // Set up local state for first and last names
   const [formState, setFormState] = useState({ first: "", last: "" });
 
+  // Function to change user's name in the database
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -78,8 +75,6 @@ function Dashboard() {
       [name]: value,
     });
   };
-
-  console.log(favState);
 
   return (
     <>
