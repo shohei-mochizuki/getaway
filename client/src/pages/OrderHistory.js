@@ -5,9 +5,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER } from "../utils/queries";
 import { REMOVE_FAVOURITE, CHANGE_NAME } from "../utils/mutations";
 import { useStoreContext } from "../utils/GlobalState";
-import {
-  UPDATE_USER,
-} from "../utils/actions";
+import { UPDATE_USER } from "../utils/actions";
 
 import Cart from "../components/Cart";
 
@@ -67,7 +65,7 @@ function OrderHistory() {
       const { data } = await changeName({
         variables: { firstName: formState.first, lastName: formState.last },
       });
-      setFormState({first: "", last: ""})
+      setFormState({ first: "", last: "" });
     } catch (e) {
       console.log(e);
     }
@@ -85,40 +83,79 @@ function OrderHistory() {
 
   return (
     <>
-      <div className="container my-1">
-        <Link to="/">← Back to Main Page</Link>
+      <div className="container my-4 shadow rounded py-2">
+        <Link style={{ color: "#f3a847" }} to="/">
+          ← Back to Main Page
+        </Link>
 
         {user ? (
           <>
-            <h2 className="mb-4">
+            <h2
+              className="mb-4 shadow text-white rounded p-2 "
+              style={{
+                backgroundColor: "#74b6cd",
+                "font-family": "cursive",
+                "font-size": "1.5rem",
+              }}
+            >
               Dashboard for {state.first} {state.last}
             </h2>
-            <h3 className="my-4">Favourite Packages</h3>
-            <div className="m-3 p-3 rounded rounded-3 bg-primary">
+            <h3
+              className="my-4 font-weight-bold fs-4 px-3"
+              style={{
+                "font-family": "Libre Baskerville', serif",
+                "font-size": "1.5rem",
+              }}
+            >
+              Favourite Packages
+            </h3>
+            <div
+              className="m-3 p-3 rounded shadow rounded-3"
+              style={{ border: "2px solid #74b6cd", opacity: "0.9" }}
+            >
               <div className="flex-row justify-content-around">
-                {favState.map(
-                  ({ _id, image, name, price }, index) => (
-                    <div key={index} className="card px-1 py-1">
-                      <Link to={`/products/${_id}`}>
-                        <img alt={name} src={`/images/${image}`} />
-                        <p>{name}</p>
-                      </Link>
-                      <div>
-                        <span>${price}</span>
-                      </div>
-                      <button onClick={() => handleRemoveFavourite(_id)}>
-                        ❌ Delete from favourite
-                      </button>
+                {favState.map(({ _id, country, image, name, price }, index) => (
+                  <div key={index} className="card px-1 py-1">
+                    <div
+                      className="rounded"
+                      style={{
+                        backgroundColor: "#f3a847",
+                        "font-weight": "bold",
+                      }}
+                    >
+                      {country}
                     </div>
-                  )
-                )}
+                    <Link to={`/products/${_id}`}>
+                      <img alt={name} src={`/images/${image}`} />
+                      <p>{name}</p>
+                    </Link>
+                    <div>
+                      <span>${price}</span>
+                    </div>
+                    <button
+                      className="rounded"
+                      onClick={() => handleRemoveFavourite(_id)}
+                    >
+                      ❌ Delete from favourite
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
-            <h3 className="my-4">Booking History</h3>
+            <h3
+              className="my-4 font-weight-bold fs-4 px-3"
+              style={{
+                "font-family": "cursive",
+                "font-size": "1.5rem",
+              }}
+            >
+              Booking History
+            </h3>
             {user.orders.map((order) => (
               <div
                 key={order._id}
-                className="m-3 p-3 rounded rounded-3 bg-primary"
+                className="m-3 p-3 rounded shadow rounded-3"
+                style={{ border: "2px solid #74b6cd", opacity: "0.9" }}
               >
                 <h3>
                   Booked on{" "}
@@ -139,8 +176,19 @@ function OrderHistory() {
                 </div>
               </div>
             ))}
-            <h3 className="my-4">Change your name - Mistakes happen!</h3>
-            <div className="m-3 p-3 rounded rounded-3 bg-primary">
+            <h3
+              className="my-4 font-weight-bold fs-4 px-3"
+              style={{
+                "font-family": "cursive",
+                "font-size": "1.5rem",
+              }}
+            >
+              Change your name - Mistakes happen!
+            </h3>
+            <div
+              className="m-3 p-3 rounded shadow rounded-3 "
+              style={{ border: "2px solid #74b6cd", opacity: "0.9" }}
+            >
               <form onSubmit={handleFormSubmit}>
                 <div className="flex-row space-between my-2">
                   <label htmlFor="firstName">First name:</label>
@@ -164,8 +212,10 @@ function OrderHistory() {
                     onChange={handleChange}
                   />
                 </div>
-                <div className="flex-row flex-end">
-                  <button type="submit">Submit</button>
+                <div className="flex-row flex-end ">
+                  <button className="rounded" type="submit">
+                    Submit
+                  </button>
                 </div>
               </form>
             </div>
