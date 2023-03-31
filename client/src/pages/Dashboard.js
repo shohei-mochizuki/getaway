@@ -63,6 +63,7 @@ function Dashboard() {
         variables: { firstName: formState.first, lastName: formState.last },
       });
       setFormState({ first: "", last: "" });
+      window.location.reload();
     } catch (e) {
       console.log(e);
     }
