@@ -116,7 +116,7 @@ function Detail() {
         variables: { _id: currentProduct._id },
       });
       window.location.reload();
-      alert("This trip is added to your favourite❤️! Go to My Dashboard!");
+      alert("This trip is added to your favourite! Go to My Dashboard!");
       // If book successfully saves to user's account, save book id to state
       // setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
