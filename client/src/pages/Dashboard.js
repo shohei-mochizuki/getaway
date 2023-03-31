@@ -163,7 +163,12 @@ function Dashboard() {
                 className="m-3 p-3 rounded shadow rounded-3"
                 style={{ border: "2px solid #74b6cd", opacity: "0.9" }}
               >
-                <h3>
+                <h3
+                style={{
+                  "font-family": "cursive",
+                  "font-size": "1.2rem",
+                  "font-weight": "bold"
+                }}>
                   Booked on{" "}
                   {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
                 </h3>

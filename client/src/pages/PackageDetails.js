@@ -139,11 +139,11 @@ return (
           <div className="package-details-header">
             <h2 style={{ fontWeight: "bold" }}>Package Details</h2>
             <p>{currentProduct.name} | {currentProduct.country}</p>
-          </div>
-          <img
+            <img
             src={`/images/${currentProduct.image}`}
             alt={currentProduct.name}
           />
+          </div>
         </div>
         <div className="package-details-info">
           <p>{currentProduct.description}</p>
@@ -169,8 +169,8 @@ return (
         <div className="action-bg">
           <p className="save-up">save up to {currentProduct.discount}%!</p>
           <p>
-            <strong> Price: </strong>
-            {currentProduct.price}
+            <strong>Price: </strong>
+            ${currentProduct.price}
           </p>
           <button className="btn" onClick={addToCart}>
             add to cart
