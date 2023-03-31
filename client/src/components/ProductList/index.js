@@ -10,8 +10,10 @@ import spinner from "../../assets/spinner.gif";
 function ProductList() {
   const [state, dispatch] = useStoreContext();
 
+  // Set up state variable for category selection
   const { currentCategory } = state;
 
+  // Get data of all products
   const { loading, data } = useQuery(QUERY_PRODUCTS);
 
   useEffect(() => {
@@ -42,13 +44,6 @@ function ProductList() {
       (product) => product.category._id === currentCategory
     );
   };
-
-  console.log("----------data------------");
-  console.log(data);
-  console.log("----------STATE PRODUCTS------------");
-  console.log(state.products);
-  console.log("----------FILTER PRODUCT------------");
-  console.log(filterProducts());
 
   return (
     <div className="my-2">
