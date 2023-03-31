@@ -1,0 +1,16 @@
+.d-country {
+  background-color: #74b6cd;
+  padding: 20px;
+  margin-bottom: 0;
+  color: white;
+  border-radius: 5px 5px 0px 0px;
+}
+.d-price {
+    color: #2b5e70;
+    font-weight: bold;
+    font-size: x-large;
+  }
+
+  .d-name {
+    color: black;
+  }
