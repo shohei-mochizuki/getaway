@@ -5,9 +5,12 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
+    // Get information of all categories
     categories: async () => {
       return await Category.find();
     },
+
+    // Get information of all products/packages OR Get information of selected products/packages if category/region is selected
     products: async (parent, { category, region }) => {
       const params = {};
 
@@ -23,9 +26,13 @@ const resolvers = {
 
       return await Product.find(params).populate('category');
     },
+    
+    // Get information of the selected (one) product/package
     product: async (parent, { _id }) => {
       return await Product.findById(_id).populate('category');
     },
+
+    // Get information of the logged-in user
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id)
@@ -36,14 +43,14 @@ const resolvers = {
         .populate({
           path: 'savedProducts',
           populate: 'category'
-        })
-        ;
+        });
 
-        //user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
         return user;
       }
       throw new AuthenticationError('Not logged in');
     },
+    
+    // Get information of orders of the logged-in user
     order: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
@@ -56,6 +63,8 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
+    // Checkout process using Stripe
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
       const order = new Order({ products: args.products });
@@ -93,13 +102,17 @@ const resolvers = {
       return { session: session.id };
     }
   },
+
   Mutation: {
+    // For sign up
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
 
       return { token, user };
     },
+
+    // Add order data to the logged-in user's data
     addOrder: async (parent, { products }, context) => {
       console.log(context);
       if (context.user) {
@@ -112,6 +125,8 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
+    // Update user data
     updateUser: async (parent, args, context) => {
       if (context.user) {
         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
@@ -119,11 +134,15 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
+    // When products/packages are purchased, update their quantities   
     updateProduct: async (parent, { _id, quantity }) => {
       const decrement = Math.abs(quantity) * -1;
 
       return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
     },
+
+    // For login
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -141,9 +160,9 @@ const resolvers = {
 
       return { token, user };
     },
+
+    // Add favourite products/packages to the logged-in user's data
     addFavourite: async (parent, { _id }, context) => {
-      console.log("HEREHRER");
-      console.log(_id);
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
@@ -164,6 +183,8 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
+
+    // Remove favourite products/packages from the logged-in user's data
     removeFavourite: async (parent, { _id }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
@@ -182,6 +203,8 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+
+    // Modify logged-in user's first and last names
     changeName: async (parent, { firstName, lastName }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
