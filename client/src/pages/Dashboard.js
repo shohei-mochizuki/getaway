@@ -9,6 +9,8 @@ import { UPDATE_USER } from "../utils/actions";
 
 import Cart from "../components/Cart";
 
+import "./assets/css/dashboard.css";
+
 function Dashboard() {
   // Set up using context
   const [state, dispatch] = useStoreContext();
@@ -75,6 +77,12 @@ function Dashboard() {
       [name]: value,
     });
   };
+    // Styling for images
+  const imageStyle ={
+    height: "20vh",
+    width: "100%",
+    "object-fit": "cover"
+  };
 
   return (
     <>
@@ -110,31 +118,25 @@ function Dashboard() {
             >
               <div className="flex-row justify-content-around">
                 {favState.map(({ _id, country, image, name, price }, index) => (
-                  <div key={index} className="card ">
+                  <div key={index} className="card shadow m-2">
                     <div
-                      className="rounded"
-                      style={{
-                        backgroundColor: "#f3a847",
-                        "font-weight": "bold",
-                      }}
+                      className="d-country"
                     >
                       {country}
                     </div>
-                    <Link to={`/products/${_id}`}>
+                    <Link to={`/products/${_id}`} style={{ textDecoration: 'none' }}>
                       <img
-                        style={{
-                          "margin-top": "10px",
-                        }}
+                        style={imageStyle}
                         alt={name}
                         src={`/images/${image}`}
                       />
-                      <p style={{ color: "#000" }}>{name}</p>
+                      <p className="d-name">{name}</p>
                     </Link>
-                    <div style={{}}>
-                      <span>${price}</span>
+                    <div>
+                      <span className="d-price">${price}</span>
                     </div>
                     <button
-                      className="rounded"
+                      className="rounded text-white m-2"
                       onClick={() => handleRemoveFavourite(_id)}
                     >
                       ❌ Delete from favourite
