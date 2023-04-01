@@ -42,7 +42,7 @@ function ProductItem(item) {
   };
 
   return (
-    <div className="card  card shadow m-2">
+    <div className="card shadow m-2">
       <Link to={`/products/${_id}`} style={{ textDecoration: 'none' }}>
         <p className="p-country">{country}</p>
         <img alt={name} src={`/images/${image} `} style={imageStyle} />
