@@ -154,7 +154,7 @@ function Dashboard() {
             >
               Booking History
             </h3>
-            {user.orders.map((order) => (
+            {user.orders.map((order) => (              
               <div
                 key={order._id}
                 className="m-3 p-3 rounded shadow rounded-3"
@@ -171,16 +171,23 @@ function Dashboard() {
                   {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
                 </h3>
                 <div className="flex-row justify-content-around">
-                  {order.products.map(({ _id, image, name, price }, index) => (
-                    <div key={index} className="card px-1 py-1">
-                      <Link to={`/products/${_id}`}>
-                        <img alt={name} src={`/images/${image}`} />
-                        <p>{name}</p>
-                      </Link>
-                      <div>
-                        <span>${price}</span>
-                      </div>
+                  {order.products.map(({ _id, image, name, price, country }, index) => (                    
+                  <div key={index} className="card shadow m-2 opacity-75">
+                    <div className="d-country">
+                      {country}
                     </div>
+                    <Link to={`/products/${_id}`} style={{ textDecoration: 'none' }}>
+                      <img
+                        style={imageStyle}
+                        alt={name}
+                        src={`/images/${image}`}
+                      />
+                      <p className="d-name">{name}</p>
+                    </Link>
+                    <div>
+                      <span className="d-price">${price}</span>
+                    </div>
+                  </div>
                   ))}
                 </div>
               </div>
