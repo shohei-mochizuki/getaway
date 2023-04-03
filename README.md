@@ -14,29 +14,31 @@ Getaway is a travel agency that specializes in providing travel packages and tou
 
 ## Table of Contents
 
-Installation
+[Installation](#installation)
 
-Usage
+[Usage](#usage)
 
-Credits
+[Credits](#credits)
 
-License
+[License](#license)
 
-Features
+[Features](#features)
 
-How to contribute
+[How to Contribute](#how-to-contribute)
 
-Tests
+[Tests](#tests)
 
-Questions
+[Questions](#questions)
 
-Installation
+## Installation
 
-Project repo
+Project repo:
 
-Project deployed link
+https://github.com/shohei-mochizuki/getaway
 
-Project Video Demo
+Project deployed link:
+
+https://getaway.herokuapp.com/
 
 ## Usage
 
